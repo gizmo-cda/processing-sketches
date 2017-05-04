@@ -60,7 +60,7 @@ void draw() {
       // Check if the current pixel's depth is between our minimum and maximum
       // values of interest
       if (depthMin <= data && data <= depthMax) {
-        // They are, so plot a purple pixel in our output image
+        // It is so plot a purple pixel in our output image
         depthImage.pixels[offset] = color(255, 0, 150);
       }
       else {
