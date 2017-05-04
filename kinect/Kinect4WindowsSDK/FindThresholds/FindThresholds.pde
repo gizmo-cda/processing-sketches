@@ -12,7 +12,8 @@ PImage depthImage;
 
 // Define the minimum and maximum distances that we wish to display. All values
 // between and including depthMin and depthMax will be dipslayed. The draw loop
-// will update these values based on the mouse position within the sketch window
+// will update these values based on the mouse position within the sketch window.
+// These values range from 0 to 255, inclusive.
 float depthMin = 0;
 float depthMax = 255;
 

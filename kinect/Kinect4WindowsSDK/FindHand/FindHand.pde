@@ -11,7 +11,8 @@ Kinect kinect;
 PImage depthImage;
 
 // Define the minimum and maximum distances that we wish to display. All values
-// between and including depthMin and depthMax will be displayed.
+// between and including depthMin and depthMax will be displayed. These values
+// range from 0 to 255, inclusive.
 float depthMin = 17;
 float depthMax = 26;
 
