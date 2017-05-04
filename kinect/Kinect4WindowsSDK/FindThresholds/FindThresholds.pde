@@ -13,7 +13,7 @@ PImage depthImage;
 // Define the minimum and maximum distances that we wish to display. All values
 // between and including depthMin and depthMax will be dipslayed. The draw loop
 // will update these values based on the mouse position within the sketch window.
-// These values range from 0 to 255, inclusive.
+// These values range from 0 to 255, inclusive. It is expected that depthMin <= depthMax.
 float depthMin = 0;
 float depthMax = 255;
 
@@ -21,8 +21,7 @@ float depthMax = 255;
 void setup() {
   size(640, 480);
   
-  // Create a new instance of the Kinect class passing in a reference to this
-  // sketch so that it can be used for event handling (see below)
+  // Create a new instance of the Kinect class
   kinect = new Kinect(this);
 
   // Create an image to be used to display the depth data we're interested in
@@ -34,7 +33,8 @@ void draw() {
   // it is encoded in ARGB (Alpha, Red, Green, and Blue)
   PImage depthData = kinect.GetDepth();
 
-  // We use an offset to visit each pixel in the depthData image
+  // We use an offset to keep track of the current pixel to visit in the
+  // depthData image
   int offset = 0;
 
   // Map the current x and y positions to min and max depth values
@@ -45,20 +45,20 @@ void draw() {
   for (int y = 0; y < depthData.height; y++) {
     for (int x = 0; x < depthData.width; x++, offset++) {
       // Grab the current depth value via depthData.pixels[offset]. Each pixel
-      // is a 32-bit value. The first 8 bits are the A (alpha) value, the next
-      // three groups of 8 bits are the R (red), G (green), and B (blue) values,
-      // respectively. Since we know the image is greyscale, we know that
-      // R == G == B. We simply grab the bits for the blue channel using
-      // '& 0xFF'.
+      // is a 32-bit value. Traveling from MSB to LSB, the first 8 bits are the
+      // A (alpha) value, the next three groups of 8 bits are the R (red),
+      // G (green), and B (blue) values, respectively. Since we know the image
+      // is greyscale, we know that R == G == B. We simply grab the bits for the
+      // blue channel using '& 0xFF'.
       //
-      // The depth values come in with a somewhat strange ordering; smaller
-      // values are further away. To make this range more natural, we invert
-      // the distance value by subtracting it from the maximum value. Now 255 is
-      // the furthest distance
-      int data = 255 - depthData.pixels[offset] & 0xFF;
+      // The depth values come in with an unintuitive ordering; smaller values
+      // are further away. To make this range more natural, we invert the
+      // distance value by subtracting it from the maximum value. Now 255 is the
+      // furthest distance and 0 is the closest.
+      int data = 255 - (depthData.pixels[offset] & 0xFF);
       
-      // Check if the current pixel's depth is between our minimum and maximum
-      // values of interest
+      // Check if the current pixel's depth is within our minimum and maximum
+      // closed interval
       if (depthMin <= data && data <= depthMax) {
         // It is so plot a purple pixel in our output image
         depthImage.pixels[offset] = color(255, 0, 150);
