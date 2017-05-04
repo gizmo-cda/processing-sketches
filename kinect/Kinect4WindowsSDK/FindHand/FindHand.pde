@@ -91,7 +91,7 @@ void draw() {
   depthImage.updatePixels();
   image(depthImage, 0, 0);
   
-  // if we say at least one pixel of interest...
+  // if we saw at least one pixel of interest...
   if (count > 0) {
     // ...find the average X and Y value of all pixels of interest
     float averageX = sumX / count;
