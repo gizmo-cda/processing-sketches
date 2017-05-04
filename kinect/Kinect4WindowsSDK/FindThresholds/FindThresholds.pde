@@ -53,7 +53,7 @@ void draw() {
       //
       // The depth values come in with a somewhat strange ordering; smaller
       // values are further away. To make this range more natural, we invert
-      // the distance value be subtracting it from the maximum value. Now 255 is
+      // the distance value by subtracting it from the maximum value. Now 255 is
       // the furthest distance
       int data = 255 - depthData.pixels[offset] & 0xFF;
       
