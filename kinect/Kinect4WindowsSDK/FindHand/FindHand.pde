@@ -72,12 +72,12 @@ void draw() {
         // It is so plot a purple pixel in our output image
         depthImage.pixels[offset] = color(255, 0, 150);
 
-        // Since this pixel is of interest to use, add the current x and y
+        // Since this pixel is of interest to us, add the current x and y
         // coordinates to our x and y sums
         sumX += x;
         sumY += y;
 
-        // Increment the number of pixels we were interested in
+        // Increment the total count of pixels we're interested in
         count++;
       }
       else {
