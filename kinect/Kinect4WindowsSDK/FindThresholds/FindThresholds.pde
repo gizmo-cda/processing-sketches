@@ -43,13 +43,12 @@ void draw() {
   // Loop through all pixels moving left-to-right, then top-to-bottom
   for (int y = 0; y < depthData.height; y++) {
     for (int x = 0; x < depthData.width; x++, offset++) {
-      // Grab the depth value
-      //
-      // Each pixel is a 32-bit value. The first // 8 bits are the A (alpha)
-      // value, the next three groups of 8 bits are the // R (red), G (green),
-      // and B (blue) values, respectively. Since we know // the image is
-      // greyscale, we know that R == G == B. We simply grab the // bits for the
-      // blue channel using '& 0xFF'.
+      // Grab the current depth value via depthData.pixels[offset]. Each pixel
+      // is a 32-bit value. The first 8 bits are the A (alpha) value, the next
+      // three groups of 8 bits are the R (red), G (green), and B (blue) values,
+      // respectively. Since we know the image is greyscale, we know that
+      // R == G == B. We simply grab the bits for the blue channel using
+      // '& 0xFF'.
       //
       // The depth values come in with a somewhat strange ordering; smaller
       // values are further away. To make this range more natural, we invert
