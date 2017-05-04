@@ -37,7 +37,7 @@ void draw() {
   // depthData image
   int offset = 0;
 
-  // Map the current x and y positions to min and max depth values
+  // Map the current mouse x and y positions to min and max depth values
   float depthMin = map(mouseX, 0, width, 0, 255);
   float depthMax = map(mouseY, 0, height, 0, 255);
   
